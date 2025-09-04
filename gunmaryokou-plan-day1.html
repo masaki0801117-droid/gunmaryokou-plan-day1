@@ -1,0 +1,185 @@
+{\rtf1\ansi\ansicpg932\cocoartf2707
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <!DOCTYPE html>\
+<html lang="ja">\
+<head>\
+  <meta charset="UTF-8">\
+  <title>\uc0\u26053 \u34892 \u12503 \u12521 \u12531 \u35386 \u26029 </title>\
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">\
+  <style>\
+    body \{\
+      font-family: "Hiragino Sans", "Noto Sans JP", sans-serif;\
+      background: #f0f9ff;\
+      margin: 0;\
+      padding: 20px;\
+      text-align: center;\
+    \}\
+    h1 \{\
+      font-size: 1.8rem;\
+      margin-bottom: 10px;\
+      color: #0077b6;\
+    \}\
+    h2 \{\
+      font-size: 1.3rem;\
+      margin-bottom: 20px;\
+    \}\
+    .question, .result \{\
+      display: none;\
+      margin-top: 40px;\
+    \}\
+    .active \{\
+      display: block;\
+    \}\
+    button \{\
+      display: block;\
+      width: 90%;\
+      max-width: 300px;\
+      margin: 12px auto;\
+      padding: 14px;\
+      font-size: 1.1rem;\
+      border: none;\
+      border-radius: 10px;\
+      background: #48cae4;\
+      color: white;\
+      cursor: pointer;\
+      transition: 0.2s;\
+    \}\
+    button:hover \{\
+      background: #0096c7;\
+    \}\
+    .plan \{\
+      background: white;\
+      padding: 20px;\
+      margin: 20px auto;\
+      border-radius: 15px;\
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);\
+      max-width: 400px;\
+      text-align: left;\
+      font-size: 1rem;\
+      line-height: 1.6;\
+    \}\
+  </style>\
+</head>\
+<body>\
+\
+  <h1>\uc0\u26053 \u34892 \u12503 \u12521 \u12531 \u35386 \u26029 \u55356 \u57144 </h1>\
+  <p>\uc0\u36074 \u21839 \u12395 \u31572 \u12360 \u12390 \u12356 \u12367 \u12392 \u12289 \u12404 \u12387 \u12383 \u12426 \u12398 \u26053 \u34892 \u12503 \u12521 \u12531 \u12364 \u12431 \u12363 \u12427 \u12424 \u65281 </p>\
+\
+  <!-- Q1 -->\
+  <div id="q1" class="question active">\
+    <h2>Q1\uc0\u65294 \u27671 \u20998 \u20055 \u12387 \u12390 \u12427 \u12363 \u12540 \u65281 \u65311 </h2>\
+    <button onclick="next('q2')">\uc0\u12358 \u12362 \u12362 \u12362 \u12362 \u12362 \u12540 \u65281 \u65281 </button>\
+    <button onclick="next('q2')">\uc0\u27005 \u12375 \u12415 \u12384 \u12382 \u12540 \u65281 </button>\
+    <button onclick="next('q2')">\uc0\u24444 \u27663 \u12363 \u12387 \u12371 \u12356 \u12356 </button>\
+  </div>\
+\
+  <!-- Q2 -->\
+  <div id="q2" class="question">\
+    <h2>Q2\uc0\u65294 \u33258 \u28982 \u65292 \u27508 \u21490 \u65292 \u12450 \u12463 \u12486 \u12451 \u12499 \u12486 \u12451 \u12393 \u12428 \u12364 \u12356 \u12356 \u65311 </h2>\
+    <button onclick="next('q3')">\uc0\u33258 \u28982 </button>\
+    <button onclick="next('q4')">\uc0\u27508 \u21490 </button>\
+    <button onclick="next('q5')">\uc0\u12450 \u12463 \u12486 \u12451 \u12499 \u12486 \u12451 </button>\
+  </div>\
+\
+  <!-- Q3 -->\
+  <div id="q3" class="question">\
+    <h2>Q3\uc0\u65294 \u12422 \u12387 \u12383 \u12426 \u22238 \u12427 \u12467 \u12540 \u12473 \u12363 \u35440 \u12417 \u35440 \u12417 \u12467 \u12540 \u12473 \u12393 \u12387 \u12385 \u12364 \u12356 \u12356 \u65311 </h2>\
+    <button onclick="showPlan(2)">\uc0\u12422 \u12387 \u12383 \u12426 </button>\
+    <button onclick="next('q6')">\uc0\u35440 \u12417 \u35440 \u12417 </button>\
+  </div>\
+\
+  <!-- Q4 -->\
+  <div id="q4" class="question">\
+    <h2>Q4\uc0\u65294 \u24773 \u32210 \u12363 \u26223 \u33394 \u12364 \u12356 \u12356 \u12363 \u12381 \u12398 \u20182 \u12434 \u36984 \u12435 \u12391 \u12397 </h2>\
+    <button onclick="showPlan(5)">\uc0\u24773 \u32210 </button>\
+    <button onclick="showPlan(6)">\uc0\u26223 \u33394 </button>\
+    <button onclick="showPlan(1)">\uc0\u12381 \u12398 \u20182 </button>\
+  </div>\
+\
+  <!-- Q5 -->\
+  <div id="q5" class="question">\
+    <h2>Q5.\uc0\u38957 \u12434 \u20351 \u12358 or\u20307 \u12434 \u21205 \u12363 \u12377 </h2>\
+    <button onclick="next('q7')">\uc0\u38957 </button>\
+    <button onclick="next('q6')">\uc0\u20307 </button>\
+  </div>\
+\
+  <!-- Q6 -->\
+  <div id="q6" class="question">\
+    <h2>Q6\uc0\u65294 \u33258 \u20998 \u12395 \u38306 \u36899 \u12364 \u12354 \u12427 \u12392 \u12371 \u12429 \u12364 \u12356 \u12356 \u65311 </h2>\
+    <button onclick="showPlan(6)">YES</button>\
+    <button onclick="showPlan(3)">NO</button>\
+  </div>\
+\
+  <!-- Q7 -->\
+  <div id="q7" class="question">\
+    <h2>Q7.\uc0\u34453 \u12399 \u22909 \u12365 \u12363 \u12356 </h2>\
+    <button onclick="showPlan(1)">YES</button>\
+    <button onclick="showPlan(4)">NO</button>\
+  </div>\
+\
+  <!-- \uc0\u32080 \u26524 \u34920 \u31034  -->\
+  <div id="result" class="result">\
+    <h2>\uc0\u12354 \u12394 \u12383 \u12395 \u12362 \u12377 \u12377 \u12417 \u12398 \u12503 \u12521 \u12531 \u12399 \u12371 \u12428 \u65281 </h2>\
+    <div id="planContent" class="plan"></div>\
+  </div>\
+\
+  <script>\
+    const plans = \{\
+      1: `\uc0\u12304 \u12503 \u12521 \u12531 1\u12305 <br>\
+      7:00 \uc0\u20986 \u30330 <br>\
+      9:00~11:00 \uc0\u26481 \u26494 \u23665 \u12412 \u12383 \u12435 \u22290 <br>\
+      12:00~13:00 \uc0\u23500 \u23713 \u35069 \u31992 \u22580 <br>\
+      14:30~15:00 \uc0\u12354 \u12364 \u12388 \u12414 \u23777 <br>\
+      15:30 \uc0\u33609 \u27941 \u28201 \u27849 `,\
+      2: `\uc0\u12304 \u12503 \u12521 \u12531 2\u12305 <br>\
+      7:00 \uc0\u20986 \u30330 <br>\
+      11:00~12:00 \uc0\u26087 \u22826 \u23376 \u39365 <br>\
+      12:00~13:00 \uc0\u36196 \u23721 \u38598 \u33853 <br>\
+      13:30~14:00 \uc0\u36947 \u12398 \u39365 \u12354 \u12364 \u12388 \u12414 \u23777 <br>\
+      14:30 \uc0\u33609 \u27941 \u28201 \u27849 `,\
+      3: `\uc0\u12304 \u12503 \u12521 \u12531 3\u12305 <br>\
+      7:00 \uc0\u20986 \u30330 <br>\
+      11:00~12:00 \uc0\u26087 \u22826 \u23376 \u39365  or \u36196 \u23721 \u38598 \u33853 <br>\
+      12:30~13:00 \uc0\u36947 \u12398 \u39365 \u12354 \u12364 \u12388 \u12414 \u23777 <br>\
+      13:30~15:30 \uc0\u22825 \u29399 \u12503 \u12524 \u12452 \u12478 \u12540 \u12531 <br>\
+      15:30 \uc0\u33609 \u27941 \u28201 \u27849 `,\
+      4: `\uc0\u12304 \u12503 \u12521 \u12531 4\u12305 <br>\
+      7:00 \uc0\u20986 \u30330 <br>\
+      9:00~11:00 \uc0\u26481 \u26494 \u23665 \u12412 \u12383 \u12435 \u22290 <br>\
+      13:30~14:30 \uc0\u26087 \u22826 \u23376 \u39365  or \u36196 \u23721 \u38598 \u33853 <br>\
+      15:00~15:30 \uc0\u36947 \u12398 \u39365 \u12354 \u12364 \u12388 \u12414 \u23777 <br>\
+      16:00 \uc0\u33609 \u27941 \u28201 \u27849 `,\
+      5: `\uc0\u12304 \u12503 \u12521 \u12531 5\u12305 <br>\
+      7:00 \uc0\u20986 \u30330 <br>\
+      9:00~10:00 \uc0\u23500 \u23713 \u35069 \u31992 \u22580 <br>\
+      11:30~12:00 \uc0\u12354 \u12364 \u12388 \u12414 \u23777 <br>\
+      12:30~13:30 \uc0\u26087 \u22826 \u23376 \u39365  or \u36196 \u23721 \u38598 \u33853 <br>\
+      14:00 \uc0\u33609 \u27941 \u28201 \u27849 `,\
+      6: `\uc0\u12304 \u12503 \u12521 \u12531 6\u12305 <br>\
+      7:00 \uc0\u20986 \u30330 <br>\
+      9:00~10:00 \uc0\u23500 \u23713 \u35069 \u31992 \u22580 <br>\
+      11:30~12:00 \uc0\u12354 \u12364 \u12388 \u12414 \u23777 <br>\
+      12:30~14:30 \uc0\u22825 \u29399 \u12503 \u12524 \u12452 \u12478 \u12540 \u12531 <br>\
+      14:30 \uc0\u33609 \u27941 \u28201 \u27849 `,\
+    \};\
+\
+    function next(nextId) \{\
+      document.querySelector(".active").classList.remove("active");\
+      document.getElementById(nextId).classList.add("active");\
+    \}\
+\
+    function showPlan(num) \{\
+      document.querySelector(".active").classList.remove("active");\
+      document.getElementById("result").classList.add("active");\
+      document.getElementById("planContent").innerHTML = plans[num];\
+    \}\
+  </script>\
+\
+</body>\
+</html>\
+}
