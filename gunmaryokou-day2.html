@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>旅行プラン診断</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: "Hiragino Sans", "Noto Sans JP", sans-serif;
+      background: #f0f9ff;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      color: #0077b6;
+    }
+    h2 {
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+    }
+
+    /* start / question / result common visibility control */
+    .start, .question, .result {
+      display: none;
+      margin-top: 40px;
+    }
+    .active {
+      display: block;
+    }
+
+    /* start screen */
+    .start-box {
+      background: #fff;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      max-width: 480px;
+      margin: 40px auto 0;
+    }
+    .start-btn {
+      display: inline-block;
+      width: 82%;
+      max-width: 320px;
+      margin-top: 18px;
+      padding: 16px;
+      font-size: 1.2rem;
+      border-radius: 12px;
+      border: none;
+      background: #00a8e8;
+      color: white;
+      cursor: pointer;
+    }
+    .start-sub {
+      color: #555;
+      font-size: 0.95rem;
+      margin-top: 8px;
+    }
+
+    button {
+      display: block;
+      width: 90%;
+      max-width: 300px;
+      margin: 12px auto;
+      padding: 14px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 10px;
+      background: #48cae4;
+      color: white;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    button:hover {
+      background: #0096c7;
+    }
+
+    /* プランを最初は非表示にする */
+    .plan {
+      display: none;
+      background: white;
+      padding: 20px;
+      margin: 20px auto;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      max-width: 400px;
+      text-align: left;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    /* Q3の警告 */
+    #q3-warning {
+      display: none;
+      color: red;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    #q3-warning.visible {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>旅行プラン診断🍐</h1>
+  <p>質問に答えてマオにぴったりな旅行プランを提案するよ！</p>
+
+  <!-- Start screen -->
+  <div id="start" class="start active">
+    <div class="start-box">
+      <h2>2日目！！</h2>
+      <p class="start-sub">スタートを押して質問に答えていってね😉</p>
+      <button class="start-btn" onclick="startQuiz()">スタート!</button>
+    </div>
+  </div>
+
+  <!-- Q1 -->
+  <div id="q1" class="question">
+    <h2>Q1．今日の調子はどうだー！！！</h2>
+    <button onclick="showQuestion('q2')">最高</button>
+    <button onclick="showQuestion('q2')">元気モリモリ</button>
+    <button onclick="showQuestion('q2')">寝不足</button>
+    <button onclick="showQuestion('q2')">いえい＾_＾</button>
+  </div>
+
+  <!-- Q2 -->
+  <div id="q2" class="question">
+    <h2>Q2.今日は何が楽しみ？</h2>
+    <button onclick="showQuestion('q3')">観光</button>
+    <button onclick="showQuestion('q3')">ご飯</button>
+    <button onclick="showQuestion('q3')">ホテル</button>
+  </div>
+
+  <!-- Q3 -->
+  <div id="q3" class="question">
+    <h2>Q3.彼氏のビジュは？？</h2>
+    <div id="q3-warning" aria-live="polite">違うでしょ！！</div>
+    <button onclick="wrongQ3()">普通</button>
+    <button onclick="wrongQ3()">まあまあ</button>
+    <button onclick="wrongQ3()">ブサイク</button>
+    <button onclick="showQuestion('q4')">かっこいい</button>
+  </div>
+
+  <!-- Q4 -->
+  <div id="q4" class="question">
+    <h2>Q4.この中でマオが好きな果物は？</h2>
+    <button onclick="showQuestion('q5')">キウイ</button>
+    <button onclick="showQuestion('q5')">梨</button>
+    <button onclick="showQuestion('q5')">いちご</button>
+  </div>
+
+  <!-- Q5 -->
+  <div id="q5" class="question">
+    <h2>Q5.昼ごはんはしっかり食べたい？</h2>
+    <button onclick="showQuestion('q6')">食べたい！</button>
+    <button onclick="showQuestion('q7')">そんなことより観光でしょ！！</button>
+  </div>
+
+  <!-- Q6 -->
+  <div id="q6" class="question">
+    <h2>Q6.景色か動物か</h2>
+    <button onclick="showPlan('plan1')">景色</button>
+    <button onclick="showPlan('plan2')">動物</button>
+  </div>
+
+  <!-- Q7 -->
+  <div id="q7" class="question">
+    <h2>Q7.きれいな湖か景色のいい場所</h2>
+    <button onclick="showPlan('plan3')">きれいな湖</button>
+    <button onclick="showPlan('plan4')">景色のいい場所</button>
+  </div>
+
+  <!-- Plans -->
+  <div id="plan1" class="plan">
+    <h3>プラン1</h3>
+    <p>11:30~12:30 悴田梨園（梨狩りだーー）</p>
+    <p>13:00~14:00 うどん（温or冷）</p>
+    <p>14:00~15:00 法水寺（景色いいらしいよ〜）</p>
+    <p>15:00~ 伊香保温泉（1番楽しみにしてる）</p>
+  </div>
+
+  <div id="plan2" class="plan">
+    <h3>プラン2</h3>
+    <p>11:30~12:30 悴田梨園（梨狩りだーー）</p>
+    <p>13:00~14:00 うどん（温or冷）</p>
+    <p>14:00~15:00 伊香保グリーン牧場（服部牧場とどっちがいいかな？）</p>
+    <p>15:00~ 伊香保温泉（1番楽しみにしてる）</p>
+  </div>
+
+  <div id="plan3" class="plan">
+    <h3>プラン3</h3>
+    <p>11:30~12:30 悴田梨園（梨狩りだーー）</p>
+    <p>13:30~14:30 奥四万湖（コバルトブルー！）</p>
+    <p>15:30~ 伊香保温泉（1番楽しみにしてる）</p>
+  </div>
+
+  <div id="plan4" class="plan">
+    <h3>プラン4</h3>
+    <p>11:30~12:30 悴田梨園（梨狩りだーー）</p>
+    <p>13:00~14:00 法水寺（景色いいらしいよ〜）</p>
+    <p>14:00~15:00 伊香保グリーン牧場（服部牧場とどっちがいいかな？）</p>
+    <p>15:00~ 伊香保温泉（1番楽しみにしてる）</p>
+  </div>
+
+  <script>
+    function startQuiz() {
+      document.getElementById('start').classList.remove('active');
+      showQuestion('q1'); // 最初はQ1からスタート
+    }
+
+    function showQuestion(id) {
+      document.querySelectorAll('.question').forEach(el => el.classList.remove('active'));
+      const q = document.getElementById(id);
+      if (q) q.classList.add('active');
+      document.querySelectorAll('.plan').forEach(p => p.style.display = 'none');
+    }
+
+    function showPlan(id) {
+      document.querySelectorAll('.question').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.plan').forEach(p => p.style.display = 'none');
+      const plan = document.getElementById(id);
+      if (plan) plan.style.display = 'block';
+    }
+
+    // Q3 "違うでしょ！！"
+    (function(){
+      let q3Timer = null;
+      window.wrongQ3 = function() {
+        const warn = document.getElementById('q3-warning');
+        if (warn.classList.contains('visible')) {
+          warn.classList.remove('visible');
+          void warn.offsetWidth;
+        }
+        warn.classList.add('visible');
+        clearTimeout(q3Timer);
+        q3Timer = setTimeout(() => {
+          warn.classList.remove('visible');
+        }, 1300);
+        showQuestion('q3');
+      };
+    })();
+  </script>
+</body>
+</html>

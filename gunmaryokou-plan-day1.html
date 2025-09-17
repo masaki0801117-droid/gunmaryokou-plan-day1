@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>旅行プラン診断</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: "Hiragino Sans", "Noto Sans JP", sans-serif;
+      background: #f0f9ff;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      color: #0077b6;
+    }
+    h2 {
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+    }
+
+    /* start / question / result common visibility control */
+    .start, .question, .result {
+      display: none;
+      margin-top: 40px;
+    }
+    .active {
+      display: block;
+    }
+
+    /* start screen */
+    .start-box {
+      background: #fff;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      max-width: 480px;
+      margin: 40px auto 0;
+    }
+    .start-btn {
+      display: inline-block;
+      width: 82%;
+      max-width: 320px;
+      margin-top: 18px;
+      padding: 16px;
+      font-size: 1.2rem;
+      border-radius: 12px;
+      border: none;
+      background: #00a8e8;
+      color: white;
+      cursor: pointer;
+    }
+    .start-sub {
+      color: #555;
+      font-size: 0.95rem;
+      margin-top: 8px;
+    }
+
+    button {
+      display: block;
+      width: 90%;
+      max-width: 300px;
+      margin: 12px auto;
+      padding: 14px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 10px;
+      background: #48cae4;
+      color: white;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    button:hover {
+      background: #0096c7;
+    }
+    .plan {
+      background: white;
+      padding: 20px;
+      margin: 20px auto;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      max-width: 400px;
+      text-align: left;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>旅行プラン診断🍁</h1>
+  <p>質問に答えてマオにぴったりな旅行プランを提案するよ！</p>
+
+  <!-- Start screen -->
+  <div id="start" class="start active">
+    <div class="start-box">
+      <h2>1日目！！</h2>
+      <p class="start-sub">スタートを押して質問に答えていってね😉</p>
+      <button class="start-btn" onclick="startQuiz()">スタート!</button>
+    </div>
+  </div>
+
+  <!-- Q1 -->
+  <div id="q1" class="question">
+    <h2>Q1．気分乗ってるかー！？</h2>
+    <button onclick="next('q2')">うおおおおおー！！</button>
+    <button onclick="next('q2')">楽しみだぞー！</button>
+    <button onclick="next('q2')">彼氏かっこいい</button>
+  </div>
+
+  <!-- Q2 -->
+  <div id="q2" class="question">
+    <h2>Q2．自然，歴史，アクティビティどれがいい？</h2>
+    <button onclick="next('q3')">自然</button>
+    <button onclick="next('q4')">歴史</button>
+    <button onclick="next('q5')">アクティビティ</button>
+  </div>
+
+  <!-- Q3 -->
+  <div id="q3" class="question">
+    <h2>Q3．ゆったり回るコースか詰め詰めコースどっちがいい？</h2>
+    <button onclick="showPlan(2)">ゆったり</button>
+    <button onclick="next('q6')">詰め詰め</button>
+  </div>
+
+  <!-- Q4 -->
+  <div id="q4" class="question">
+    <h2>Q4．情緒か景色がいいかその他を選んでね</h2>
+    <button onclick="showPlan(5)">情緒</button>
+    <button onclick="showPlan(6)">景色</button>
+    <button onclick="showPlan(1)">その他</button>
+  </div>
+
+  <!-- Q5 -->
+  <div id="q5" class="question">
+    <h2>Q5.頭を使うor体を動かす</h2>
+    <button onclick="next('q7')">頭</button>
+    <button onclick="next('q6')">体</button>
+  </div>
+
+  <!-- Q6 -->
+  <div id="q6" class="question">
+    <h2>Q6．自分に関連があるところがいい？</h2>
+    <button onclick="showPlan(6)">YES</button>
+    <button onclick="showPlan(3)">NO</button>
+  </div>
+
+  <!-- Q7 -->
+  <div id="q7" class="question">
+    <h2>Q7.蚕は好きかい</h2>
+    <button onclick="showPlan(1)">YES</button>
+    <button onclick="showPlan(4)">NO</button>
+  </div>
+
+  <!-- 結果表示 -->
+  <div id="result" class="result">
+    <h2>今日1日のプランはこれだ！</h2>
+    <div id="planContent" class="plan"></div>
+    <div style="margin-top:12px;">
+      <button onclick="restart()">最初からやり直す</button>
+    </div>
+  </div>
+
+  <script>
+    const plans = {
+      1: `【プラン1】<br>
+      7:00 出発<br>
+      9:00~11:00 東松山ぼたん園（何かが今日までらしいよ😏）<br>
+      12:00~13:00 富岡製糸場（蚕にゆかりあるからね〜）<br>
+      14:30~15:00 あがつま峡（道の駅！）<br>
+      15:30 草津温泉（今日はここ！）`,
+      2: `【プラン2】<br>
+      7:00 出発<br>
+      11:00~12:00 旧太子駅（なんかいいっぽい笑）<br>
+      12:00~13:00 赤岩集落（養蚕が盛んだったらしい〜）<br>
+      13:30~14:00 あがつま峡（道の駅！）<br>
+      14:30 草津温泉（今日はここ！）`,
+      3: `【プラン3】<br>
+      7:00 出発<br>
+      11:00~12:00 旧太子駅 or 赤岩集落（どっち行こうかね）<br>
+      12:30~13:00 あがつま峡（道の駅！）<br>
+      13:30~15:30 天狗プレイゾーン（風を感じよう！）<br>
+      15:30 草津温泉（今日はここ！）`,
+      4: `【プラン4】<br>
+      7:00 出発<br>
+      9:00~11:00 東松山ぼたん園（何かが今日までらしいよ😏）<br>
+      13:30~14:30 旧太子駅 or 赤岩集落（どっち行こうかね）<br>
+      15:00~15:30 あがつま峡（道の駅！）<br>
+      16:00 草津温泉（今日はここ！）`,
+      5: `【プラン5】<br>
+      7:00 出発<br>
+      9:00~10:00 富岡製糸場（蚕にゆかりあるからね〜）<br>
+      11:30~12:00 あがつま峡（道の駅！）<br>
+      12:30~13:30 旧太子駅 or 赤岩集落（どっち行こうかね）<br>
+      14:00 草津温泉（今日はここ！）`,
+      6: `【プラン6】<br>
+      7:00 出発<br>
+      9:00~10:00 富岡製糸場（蚕にゆかりあるからね〜）<br>
+      11:30~12:00 あがつま峡（道の駅！）（どっち行こうかね）<br>
+      12:30~14:30 天狗プレイゾーン（風を感じよう！）<br>
+      14:30 草津温泉（今日はここ！）`,
+    };
+
+    function startQuiz() {
+      // hide start and show first question
+      document.getElementById('start').classList.remove('active');
+      document.getElementById('q1').classList.add('active');
+    }
+
+    function next(nextId) {
+      // hide all sections then show target
+      document.querySelectorAll('.start, .question, .result').forEach(el => el.classList.remove('active'));
+      const target = document.getElementById(nextId);
+      if (target) target.classList.add('active');
+    }
+
+    function showPlan(num) {
+      // hide all questions and start, then show result
+      document.querySelectorAll('.start, .question, .result').forEach(el => el.classList.remove('active'));
+      document.getElementById('result').classList.add('active');
+      document.getElementById('planContent').innerHTML = plans[num];
+    }
+
+    function restart() {
+      // go back to start
+      document.querySelectorAll('.start, .question, .result').forEach(el => el.classList.remove('active'));
+      document.getElementById('start').classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
